@@ -1,0 +1,427 @@
+Index: src/com/company/controllers/BookInfoContr.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.controllers;\r\n\r\nimport com.company.entities.BookInfo;\r\nimport com.company.repositories.interfaces.IBookInfoRepo;\r\n\r\npublic class BookInfoContr { /*creating a controller for Book class*/\r\n    private final IBookInfoRepo repo1;\r\n    public BookInfoContr(IBookInfoRepo repo1){\r\n        this.repo1 = repo1;\r\n     }\r\n        public String addBookInfo(String barcode, int price, String dateOfPurchase, int publicationYear){\r\n            BookInfo bookInfo = new BookInfo(barcode,price, dateOfPurchase, publicationYear);\r\n            boolean created= repo1.addBookInfo(bookInfo);\r\n\r\n            return  (created ?  \"Information about book is successfully added!\":\" addition was failed!\");\r\n    }\r\n    public String getBookInfoByPrice(int price1,int price2){\r\n            BookInfo bookInfo = repo1.getBookInfoByPrice(price1, price2);\r\n            return (bookInfo == null ? \"Information about book was not found\" : bookInfo.toString());\r\n        }\r\n    public String removeByBarcode(String barcode) {\r\n        boolean removed = repo1.removeByBarcode(barcode);\r\n\r\n        return ( removed ? \"Information about book was removed\" : \"It has trouble\");\r\n    }\r\n\r\n    public String getSaleByDate(int year1, int year2){\r\n        BookInfo gotten = repo1.getSaleByDate(year1,year2);\r\n        return ( gotten==null ? \"Sale was appointed\" : \"Sale is not valid\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/controllers/BookInfoContr.java b/src/com/company/controllers/BookInfoContr.java
+--- a/src/com/company/controllers/BookInfoContr.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/controllers/BookInfoContr.java	(date 1615136579744)
+@@ -9,10 +9,10 @@
+         this.repo1 = repo1;
+      }
+         public String addBookInfo(String barcode, int price, String dateOfPurchase, int publicationYear){
+-            BookInfo bookInfo = new BookInfo(barcode,price, dateOfPurchase, publicationYear);
++            BookInfo bookInfo = new BookInfo(barcode, price, dateOfPurchase, publicationYear);
+             boolean created= repo1.addBookInfo(bookInfo);
+ 
+-            return  (created ?  "Information about book is successfully added!":" addition was failed!");
++            return  (created ?  "Information about book is successfully added!":" Addition was failed!");/*comment to success or failing of method*/
+     }
+     public String getBookInfoByPrice(int price1,int price2){
+             BookInfo bookInfo = repo1.getBookInfoByPrice(price1, price2);
+Index: src/com/company/controllers/LibraryContr.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.controllers;\r\n\r\nimport com.company.entities.Librarian;\r\nimport com.company.entities.Library;\r\nimport com.company.repositories.interfaces.ILibraryRepo;\r\n\r\npublic class LibraryContr {\r\n    private final ILibraryRepo repo3;\r\n\r\n    public LibraryContr(ILibraryRepo repo3) {\r\n        this.repo3 = repo3;\r\n    }\r\n    public String getLibraryByLocation(String location){\r\n        Library library = repo3.getLibraryByLocation(location);\r\n        return (library == null ? \"Library with this location is not found\" : library.toString());\r\n    }\r\n    public String getAddressByName(String address){\r\n        Library library = repo3.getAddressByName(address);\r\n        return (library == null ? \"Library with this name is not found\" : library.toString());\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/controllers/LibraryContr.java b/src/com/company/controllers/LibraryContr.java
+--- a/src/com/company/controllers/LibraryContr.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/controllers/LibraryContr.java	(date 1615136870698)
+@@ -10,11 +10,11 @@
+     public LibraryContr(ILibraryRepo repo3) {
+         this.repo3 = repo3;
+     }
+-    public String getLibraryByLocation(String location){
++    public String getLibraryByLocation(String location){/*the function to getting library by location*/
+         Library library = repo3.getLibraryByLocation(location);
+         return (library == null ? "Library with this location is not found" : library.toString());
+     }
+-    public String getAddressByName(String address){
++    public String getAddressByName(String address){/*the function for getting address by library name*/
+         Library library = repo3.getAddressByName(address);
+         return (library == null ? "Library with this name is not found" : library.toString());
+     }
+Index: src/com/company/repositories/BookRepositories.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.repositories;\r\n\r\nimport com.company.data.interfaces.IDB;\r\nimport com.company.entities.Books;\r\nimport com.company.repositories.interfaces.IBookRepo;\r\n\r\nimport java.sql.*;\r\nimport java.util.LinkedList;\r\nimport java.util.List;\r\n\r\npublic class BookRepositories implements IBookRepo {\r\n    private final IDB db;\r\n    public BookRepositories(IDB db){\r\n        this.db= db;\r\n    }\r\n\r\n    @Override\r\n    public List<Books> getAllBooksList() {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            String sql = (\"SELECT ISBN, title, genre, publisher, lang, numberOfPage, author FROM Books\");\r\n            Statement st = con.createStatement();\r\n\r\n            ResultSet rs = st.executeQuery(sql);\r\n            List <Books> booksList = new LinkedList<>();\r\n            while (rs.next()){\r\n                Books books = new Books(rs.getInt(\"ISBN\"),\r\n                        rs.getString(\"title\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getString(\"publisher\"),\r\n                        rs.getString(\"lang\"),\r\n                        rs.getInt(\"numberOfPage\"),\r\n                        rs.getString(\"author\"));\r\n                booksList.add(books);\r\n            }\r\n            return booksList;\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        }finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public Books getBookByAuthor(String author) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            String sql = \"SELECT ISBN, title, genre, publisher, lang, numberOfPage, author FROM Books WHERE author=?\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            st.setString(1, author);\r\n\r\n            ResultSet rs = st.executeQuery();\r\n            if (rs.next()) {\r\n                Books books = new Books(rs.getInt(\"ISBN\"),\r\n                        rs.getString(\"title\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getString(\"publisher\"),\r\n                        rs.getString(\"lang\"),\r\n                        rs.getInt(\"numberOfPage\"),\r\n                        rs.getString(\"author\"));\r\n                return books;\r\n            }\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public Books getBookByGenre(String genre) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            String sql = \"SELECT title FROM Books WHERE genre=?\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            st.setString(1, genre);\r\n\r\n            ResultSet rs = st.executeQuery();\r\n            if (rs.next()) {\r\n                Books books = new Books(rs.getInt(\"ISBN\"),\r\n                        rs.getString(\"title\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getString(\"publisher\"),\r\n                        rs.getString(\"lang\"),\r\n                        rs.getInt(\"numberOfPage\"),\r\n                        rs.getString(\"author\"));\r\n                return books;\r\n            }\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public boolean removeBookByPublisher(String publisher) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            PreparedStatement st = con.prepareStatement(\"DELETE FROM Books WHERE publisher = ?\");\r\n            st.setString(1, publisher);\r\n            st.execute();\r\n            return true;\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/repositories/BookRepositories.java b/src/com/company/repositories/BookRepositories.java
+--- a/src/com/company/repositories/BookRepositories.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/repositories/BookRepositories.java	(date 1615136050479)
+@@ -15,7 +15,7 @@
+     }
+ 
+     @Override
+-    public List<Books> getAllBooksList() {
++    public List<Books> getAllBooksList() { /*getting all book list from table*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+@@ -50,7 +50,7 @@
+     }
+ 
+     @Override
+-    public Books getBookByAuthor(String author) {
++    public Books getBookByAuthor(String author) {/*outputting information about books by author name*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+@@ -85,7 +85,7 @@
+     }
+ 
+     @Override
+-    public Books getBookByGenre(String genre) {
++    public Books getBookByGenre(String genre) { /*outputting info about books by genre of book*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+@@ -120,7 +120,7 @@
+     }
+ 
+     @Override
+-    public boolean removeBookByPublisher(String publisher) {
++    public boolean removeBookByPublisher(String publisher) {/*deleting books from table by publisher*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+Index: src/com/company/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company;\r\n\r\nimport com.company.controllers.*;\r\nimport com.company.data.PostgresDB;\r\nimport com.company.data.interfaces.IDB;\r\nimport com.company.repositories.*;\r\nimport com.company.repositories.interfaces.*;\r\n\r\npublic class Main {\r\n\r\n    public static void main(String[] args) {\r\n        IDB db = new PostgresDB();\r\n        IBookInfoRepo repo1 = new BookInfoRepo(db);\r\n            IBookRepo repo2 = new BookRepositories(db);\r\n            ILibraryRepo repo3 = new LibraryRepo(db);\r\n            ILibrarianRepo repo4 = new LibrarianRepo(db);\r\n            IReaderRepo repo5 = new ReaderRepo(db);\r\n            BookInfoContr contr1 = new BookInfoContr(repo1);\r\n            BooksContr contr2 = new BooksContr(repo2);\r\n            LibraryContr contr3 = new LibraryContr(repo3);\r\n            LibrarianContr contr4 = new LibrarianContr(repo4);\r\n            ReaderContr contr5 = new ReaderContr(repo5);\r\n            MyApplication app = new MyApplication(contr1, contr2, contr3, contr4, contr5);\r\n            app.start();\r\n    }\r\n}\r\n/*We have created 5 entities for Library Management System. There are\r\nBooks, Information about books, main employee of library is Librarian,\r\nAlso library and Readers of books.\r\n */\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/Main.java b/src/com/company/Main.java
+--- a/src/com/company/Main.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/Main.java	(date 1615136310809)
+@@ -3,22 +3,23 @@
+ import com.company.controllers.*;
+ import com.company.data.PostgresDB;
+ import com.company.data.interfaces.IDB;
++import com.company.entities.Librarian;
+ import com.company.repositories.*;
+ import com.company.repositories.interfaces.*;
+ 
+ public class Main {
+ 
+-    public static void main(String[] args) {
++    public static void main(String[] args) {/*Here we connected all classes each other*/
+         IDB db = new PostgresDB();
+         IBookInfoRepo repo1 = new BookInfoRepo(db);
+             IBookRepo repo2 = new BookRepositories(db);
+-            ILibraryRepo repo3 = new LibraryRepo(db);
+-            ILibrarianRepo repo4 = new LibrarianRepo(db);
++            ILibrarianRepo repo3 = new LibrarianRepo(db);
++            ILibraryRepo repo4 = new LibraryRepo(db);
+             IReaderRepo repo5 = new ReaderRepo(db);
+             BookInfoContr contr1 = new BookInfoContr(repo1);
+             BooksContr contr2 = new BooksContr(repo2);
+-            LibraryContr contr3 = new LibraryContr(repo3);
+-            LibrarianContr contr4 = new LibrarianContr(repo4);
++            LibrarianContr contr3 = new LibrarianContr(repo3);
++            LibraryContr contr4 = new LibraryContr(repo4);
+             ReaderContr contr5 = new ReaderContr(repo5);
+             MyApplication app = new MyApplication(contr1, contr2, contr3, contr4, contr5);
+             app.start();
+@@ -29,3 +30,4 @@
+ Also library and Readers of books.
+  */
+ 
++
+Index: src/com/company/MyApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company;\r\n\r\nimport com.company.controllers.*;\r\n\r\nimport java.util.InputMismatchException;\r\nimport java.util.Scanner;\r\n\r\npublic class MyApplication {\r\n    private final BookInfoContr contr1;\r\n    private final BooksContr contr2;\r\n    private final LibraryContr contr3;\r\n    private final LibrarianContr contr4;\r\n    private final ReaderContr contr5;\r\n    private final Scanner scanner;\r\n\r\n    public MyApplication(BookInfoContr contr1, BooksContr contr2, LibraryContr contr3, LibrarianContr contr4, ReaderContr contr5) {\r\n        this.contr1 = contr1;\r\n        this.contr2 = contr2;\r\n        this.contr3 = contr3;\r\n        this.contr4 = contr4;\r\n        this.contr5 = contr5;\r\n        scanner = new Scanner(System.in);\r\n    }\r\n\r\n    public void start() {\r\n        while (true) {\r\n            System.out.println();\r\n            System.out.println(\"Welcome to My Application\");\r\n            System.out.println(\"Select option: (1-5)\");\r\n            System.out.println(\"1. BookInfo's methods\");\r\n            System.out.println(\"2. Book's methods\");\r\n            System.out.println(\"3. Librarian's methods\");\r\n            System.out.println(\"4. Library's methods \");\r\n            System.out.println(\"5. Reader's methods\");\r\n            System.out.println(\"0. Exit\");\r\n            System.out.println();\r\n            try {\r\n                System.out.println(\"Enter the option: (1-5)\");\r\n                int option = scanner.nextInt();\r\n                if (option == 1) {\r\n                    BookInfoMethods();\r\n                } else if (option == 2) {\r\n                    BookMethods();\r\n                } else if (option == 3) {\r\n                    LibrarianMethods();\r\n                } else if (option == 4) {\r\n                    LibraryMethods();\r\n                } else if (option == 5) {\r\n                    ReaderMethods();\r\n                } else {\r\n                    break;\r\n                }\r\n            } catch (InputMismatchException e) {\r\n                System.out.println(\"Input must be integer\");\r\n                scanner.nextLine();\r\n            } catch (Exception e) {\r\n                System.out.println(e.getMessage());\r\n            }\r\n            System.out.println(\"***************************************\");\r\n        }\r\n    }\r\n\r\n    public void BookInfoMethods() {\r\n        while (true) {\r\n            System.out.println();\r\n            System.out.println(\"BookInfo Methods\");\r\n            System.out.println(\"Select option: (1-4)\");\r\n            System.out.println(\"1. Add information a book\");\r\n            System.out.println(\"2. Get information about a book by price range\");\r\n            System.out.println(\"3. Remove a book by barcode\");\r\n            System.out.println(\"4. Get sale to book by date\");\r\n            System.out.println(\"0. Cancel\");\r\n            System.out.println();\r\n\r\n            try {\r\n                System.out.println(\"Enter the option: (1-4)\");\r\n                int option = scanner.nextInt();\r\n                if (option == 1) {\r\n                    addBookInfoMenu();\r\n                } else if (option == 2) {\r\n                    getBookInfoByPriceMenu();\r\n                } else if (option == 3) {\r\n                    removeByBarcodeMenu();\r\n                } else if (option == 4) {\r\n                    getSaleByDateMenu();\r\n                } else {\r\n                    break;\r\n                }\r\n            } catch (InputMismatchException e) {\r\n                System.out.println(\"Input must be integer\");\r\n                scanner.nextLine();\r\n            } catch (Exception e) {\r\n                System.out.println(e.getMessage());\r\n            }\r\n            System.out.println(\"***************************************\");\r\n        }\r\n    }\r\n\r\n    public void BookMethods() {\r\n        while (true) {\r\n            System.out.println();\r\n            System.out.println(\"Book Methods\");\r\n            System.out.println(\"Select option: (1-3)\");\r\n            System.out.println(\"1. Get all list of books\");\r\n            System.out.println(\"2. Get a book by genre\");\r\n            System.out.println(\"3. Remove book by publisher\");\r\n            System.out.println(\"0. Cancel\");\r\n            System.out.println();\r\n        try {\r\n            System.out.println(\"Enter the option: (1-4)\");\r\n            int option = scanner.nextInt();\r\n            if (option == 1) {\r\n                getAllBooksListMenu();\r\n            } else if (option == 2) {\r\n                getBookByAuthorMenu();\r\n            } else if (option == 3) {\r\n                getBookByGenreMenu();\r\n            } else if (option == 3) {\r\n                removeBookByPublisherMenu();\r\n            } else {\r\n                break;\r\n            }\r\n        } catch (InputMismatchException e) {\r\n            System.out.println(\"Input must be integer\");\r\n            scanner.nextLine();\r\n        } catch (Exception e) {\r\n            System.out.println(e.getMessage());\r\n        }\r\n        System.out.println(\"***************************************\");\r\n    }\r\n}\r\n    public void LibrarianMethods() {\r\n        while (true) {\r\n            System.out.println();\r\n            System.out.println(\"Librarian Methods\");\r\n            System.out.println(\"Select option: (1-4)\");\r\n            System.out.println(\"1. Get name of librarian by id\");\r\n            System.out.println(\"2. Add librarian\");\r\n            System.out.println(\"0. Cancel\");\r\n            System.out.println();\r\n\r\n            try {\r\n                System.out.println(\"Enter the option: (1-4)\");\r\n                int option = scanner.nextInt();\r\n                if (option == 1) {\r\n                    getNameByIdMenu();\r\n                } else if (option == 2) {\r\n                    addLibrarianMenu();\r\n                } else {\r\n                    break;\r\n                }\r\n            } catch (InputMismatchException e) {\r\n                System.out.println(\"Input must be integer\");\r\n                scanner.nextLine();\r\n            } catch (Exception e) {\r\n                System.out.println(e.getMessage());\r\n            }\r\n            System.out.println(\"***************************************\");\r\n        }\r\n    }\r\n\r\n    public void LibraryMethods() {\r\n        while (true) {\r\n            System.out.println();\r\n            System.out.println(\"Library Methods\");\r\n            System.out.println(\"Select option: (1-2)\");\r\n            System.out.println(\"1. Get library by location\");\r\n            System.out.println(\"2. Get address of library by name\");\r\n            System.out.println(\"0. Cancel\");\r\n            System.out.println();\r\n            try {\r\n                System.out.println(\"Enter the option: (1-2)\");\r\n                int option = scanner.nextInt();\r\n                if (option == 1) {\r\n                    getLibraryByLocationMenu();\r\n                } else if (option == 2) {\r\n                    getAddressByNameMenu();\r\n                } else {\r\n                    break;\r\n                }\r\n            } catch (InputMismatchException e) {\r\n                System.out.println(\"Input must be integer\");\r\n                scanner.nextLine();\r\n            } catch (Exception e) {\r\n                System.out.println(e.getMessage());\r\n            }\r\n            System.out.println(\"***************************************\");\r\n        }\r\n    }\r\n    public void ReaderMethods(){\r\n        while (true){\r\n            System.out.println();\r\n            System.out.println(\"Reader Methods\");\r\n            System.out.println(\"Select option: (1-2)\");\r\n            System.out.println(\"1. Get bonus\");\r\n            System.out.println(\"2. Get date of membership by reader's id\");\r\n            System.out.println(\"0. Cancel\");\r\n            System.out.println();\r\n        try{\r\n            System.out.println(\"Enter the option: (1-2)\");\r\n            int option = scanner.nextInt();\r\n            if (option == 1) {\r\n                getBonusMenu();\r\n            } else if (option == 2) {\r\n                getDateOfMembershipByIdMenu();\r\n            }  else {\r\n                break;\r\n            }\r\n        } catch (InputMismatchException e) {\r\n            System.out.println(\"Input must be integer\");\r\n            scanner.nextLine();\r\n        } catch (Exception e) {\r\n            System.out.println(e.getMessage());\r\n        }\r\n        System.out.println(\"***************************************\");\r\n    }\r\n    }\r\n\r\n    public void addBookInfoMenu(){\r\n        System.out.println(\"Please enter barcode:\");\r\n        String barcode = scanner.next();\r\n        System.out.println(\"Please enter price:\");\r\n        int price = scanner.nextInt();\r\n        System.out.println(\"Please enter dateOfPurchase:\");\r\n        String dateOfPurchase = scanner.next();\r\n        System.out.println(\"Please enter publicationYear:\");\r\n        int publicationYear = scanner.nextInt();\r\n        String response = contr1.addBookInfo(barcode,price,dateOfPurchase,publicationYear);\r\n        System.out.println(response);\r\n    }\r\n    public void getBookInfoByPriceMenu(){\r\n        System.out.println(\"Please enter first price:\");\r\n        int price1 = scanner.nextInt();\r\n        System.out.println(\"Please enter second price:\");\r\n        int price2= scanner.nextInt();\r\n        String response = contr1.getBookInfoByPrice(price1,price2);\r\n        System.out.println(response);\r\n    }\r\n    public void removeByBarcodeMenu(){\r\n        System.out.println(\"Please enter barcode of book:\");\r\n        String barcode = scanner.next();\r\n        String response =contr1.removeByBarcode(barcode);\r\n        System.out.println(response);\r\n    }\r\n    public void getSaleByDateMenu(){\r\n        System.out.println(\"Please enter date of publication year:\");\r\n        int year1 = scanner.nextInt();\r\n        System.out.println(\"Please enter date of current year:\");\r\n        int year2 = scanner.nextInt();\r\n        String response =contr1.getSaleByDate(year1,year2);\r\n        System.out.println(response);\r\n    }\r\n    public void getAllBooksListMenu(){\r\n        String response = contr2.getAllBooksList();\r\n        System.out.println(response);\r\n    }\r\n    public void getBookByAuthorMenu(){\r\n        System.out.println(\"Please enter name of author:\");\r\n        String author = scanner.next();\r\n        String response = contr2.getBookByAuthor(author);\r\n        System.out.println(response);\r\n    }\r\n    public void getBookByGenreMenu(){\r\n        System.out.println(\"Please enter genre of book:\");\r\n        String genre = scanner.next();\r\n        String response = contr2.getBookByGenre(genre);\r\n        System.out.println(response);\r\n    }\r\n    public void removeBookByPublisherMenu(){\r\n        System.out.println(\"Please enter publisher of book:\");\r\n        String publisher = scanner.next();\r\n        String response = contr2.removeBookByPublisher(publisher);\r\n        System.out.println(response);\r\n    }\r\n    public void getNameByIdMenu(){\r\n        System.out.println(\"Please enter id of librarian:\");\r\n        int id = scanner.nextInt();\r\n        String response = contr4.getNameById(id);\r\n        System.out.println(response);\r\n    }\r\n    public void addLibrarianMenu(){\r\n        System.out.println(\"Please enter name of librarian:\");\r\n        String name = scanner.next();\r\n        System.out.println(\"Enter salary of librarian:\");\r\n        int salary = scanner.nextInt();\r\n        String response= contr4.addLibrarian(name, salary);\r\n        System.out.println(response);\r\n    }\r\n    public void getLibraryByLocationMenu(){\r\n        System.out.println(\"Please enter location of library:\");\r\n        String location = scanner.next();\r\n        String response = contr3.getLibraryByLocation(location);\r\n        System.out.println(response);\r\n    }\r\n    public void getAddressByNameMenu(){\r\n        System.out.println(\"Please enter name of library:\");\r\n        String name = scanner.next();\r\n        String response= contr3.getAddressByName(name);\r\n        System.out.println(response);\r\n    }\r\n    public void getBonusMenu(){\r\n        String response =contr5.getBonus();\r\n        System.out.println(response);\r\n    }\r\n    public void getDateOfMembershipByIdMenu(){\r\n        System.out.println(\"Please enter id of reader:\");\r\n        int id= scanner.nextInt();\r\n        String response =contr5.getDateOfMembershipById(id);\r\n        System.out.println(response);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/MyApplication.java b/src/com/company/MyApplication.java
+--- a/src/com/company/MyApplication.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/MyApplication.java	(date 1615137037351)
+@@ -8,12 +8,12 @@
+ public class MyApplication {
+     private final BookInfoContr contr1;
+     private final BooksContr contr2;
+-    private final LibraryContr contr3;
+-    private final LibrarianContr contr4;
++    private final LibrarianContr contr3;
++    private final LibraryContr contr4;
+     private final ReaderContr contr5;
+     private final Scanner scanner;
+ 
+-    public MyApplication(BookInfoContr contr1, BooksContr contr2, LibraryContr contr3, LibrarianContr contr4, ReaderContr contr5) {
++    public MyApplication(BookInfoContr contr1, BooksContr contr2, LibrarianContr contr3, LibraryContr contr4, ReaderContr contr5) {
+         this.contr1 = contr1;
+         this.contr2 = contr2;
+         this.contr3 = contr3;
+@@ -22,10 +22,10 @@
+         scanner = new Scanner(System.in);
+     }
+ 
+-    public void start() {
++    public void start() {/*function to start the project's code*/
+         while (true) {
+             System.out.println();
+-            System.out.println("Welcome to My Application");
++            System.out.println("Welcome to Our Application");/*to following to the each functions we divided methods to entity methods*/
+             System.out.println("Select option: (1-5)");
+             System.out.println("1. BookInfo's methods");
+             System.out.println("2. Book's methods");
+@@ -36,7 +36,7 @@
+             System.out.println();
+             try {
+                 System.out.println("Enter the option: (1-5)");
+-                int option = scanner.nextInt();
++                int option = scanner.nextInt();/*here you can choose one of the option to get functions*/
+                 if (option == 1) {
+                     BookInfoMethods();
+                 } else if (option == 2) {
+@@ -63,7 +63,7 @@
+     public void BookInfoMethods() {
+         while (true) {
+             System.out.println();
+-            System.out.println("BookInfo Methods");
++            System.out.println("BookInfo Methods");/*there are 4 different of methods of book info*/
+             System.out.println("Select option: (1-4)");
+             System.out.println("1. Add information a book");
+             System.out.println("2. Get information about a book by price range");
+@@ -83,6 +83,8 @@
+                     removeByBarcodeMenu();
+                 } else if (option == 4) {
+                     getSaleByDateMenu();
++                } else if (option == 0) {
++                    start();
+                 } else {
+                     break;
+                 }
+@@ -102,8 +104,9 @@
+             System.out.println("Book Methods");
+             System.out.println("Select option: (1-3)");
+             System.out.println("1. Get all list of books");
+-            System.out.println("2. Get a book by genre");
+-            System.out.println("3. Remove book by publisher");
++            System.out.println("2. Get a book by author");
++            System.out.println("3. Get a book by genre");
++            System.out.println("4. Remove book by publisher");
+             System.out.println("0. Cancel");
+             System.out.println();
+         try {
+@@ -115,7 +118,7 @@
+                 getBookByAuthorMenu();
+             } else if (option == 3) {
+                 getBookByGenreMenu();
+-            } else if (option == 3) {
++            } else if (option == 4) {
+                 removeBookByPublisherMenu();
+             } else {
+                 break;
+@@ -138,7 +141,6 @@
+             System.out.println("2. Add librarian");
+             System.out.println("0. Cancel");
+             System.out.println();
+-
+             try {
+                 System.out.println("Enter the option: (1-4)");
+                 int option = scanner.nextInt();
+@@ -275,7 +277,7 @@
+     public void getNameByIdMenu(){
+         System.out.println("Please enter id of librarian:");
+         int id = scanner.nextInt();
+-        String response = contr4.getNameById(id);
++        String response = contr3.getNameById(id);
+         System.out.println(response);
+     }
+     public void addLibrarianMenu(){
+@@ -283,19 +285,19 @@
+         String name = scanner.next();
+         System.out.println("Enter salary of librarian:");
+         int salary = scanner.nextInt();
+-        String response= contr4.addLibrarian(name, salary);
++        String response= contr3.addLibrarian(name, salary);
+         System.out.println(response);
+     }
+     public void getLibraryByLocationMenu(){
+         System.out.println("Please enter location of library:");
+         String location = scanner.next();
+-        String response = contr3.getLibraryByLocation(location);
++        String response = contr4.getLibraryByLocation(location);
+         System.out.println(response);
+     }
+     public void getAddressByNameMenu(){
+         System.out.println("Please enter name of library:");
+         String name = scanner.next();
+-        String response= contr3.getAddressByName(name);
++        String response= contr4.getAddressByName(name);
+         System.out.println(response);
+     }
+     public void getBonusMenu(){
+Index: src/com/company/repositories/LibraryRepo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.repositories;\r\n\r\nimport com.company.data.interfaces.IDB;\r\nimport com.company.entities.Librarian;\r\nimport com.company.entities.Library;\r\nimport com.company.repositories.interfaces.ILibraryRepo;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\n\r\npublic class LibraryRepo implements ILibraryRepo {\r\n    private final IDB db;\r\n    public LibraryRepo(IDB db){\r\n        this.db= db;\r\n    }\r\n\r\n\r\n    @Override\r\n    public Library getLibraryByLocation(String location) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            String sql = \"SELECT name, location, address FROM Library WHERE location=?\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n           st.setString(1, location);\r\n\r\n            ResultSet rs = st.executeQuery();\r\n            if (rs.next()) {\r\n                Library library= new Library(rs.getString(\"name\"),\r\n                        rs.getString(\"location\"),\r\n                        rs.getString(\"address\"));\r\n                return library;\r\n            }\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public Library getAddressByName(String address) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            String sql = \"SELECT address FROM Library WHERE address=?\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            st.setString(1, address);\r\n\r\n            ResultSet rs = st.executeQuery();\r\n            if (rs.next()) {\r\n                Library library= new Library(rs.getString(\"name\"),\r\n                        rs.getString(\"location\"),\r\n                        rs.getString(\"address\"));\r\n                return library;\r\n            }\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/repositories/LibraryRepo.java b/src/com/company/repositories/LibraryRepo.java
+--- a/src/com/company/repositories/LibraryRepo.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/repositories/LibraryRepo.java	(date 1615136189973)
+@@ -18,7 +18,7 @@
+ 
+ 
+     @Override
+-    public Library getLibraryByLocation(String location) {
++    public Library getLibraryByLocation(String location) {/*getting entities of table library by their location*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+@@ -49,7 +49,7 @@
+     }
+ 
+     @Override
+-    public Library getAddressByName(String address) {
++    public Library getAddressByName(String address) {/*getting address of library by name of library*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+Index: src/com/company/repositories/ReaderRepo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.repositories;\r\n\r\nimport com.company.data.interfaces.IDB;\r\nimport com.company.entities.Librarian;\r\nimport com.company.entities.Reader;\r\nimport com.company.repositories.interfaces.IReaderRepo;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\n\r\npublic class ReaderRepo implements IReaderRepo {\r\n    private final IDB db;\r\n    public ReaderRepo(IDB db) {\r\n        this.db= db;\r\n    }\r\n\r\n    @Override\r\n    public boolean getBonus() {\r\n        return getBonus();\r\n    }\r\n\r\n    @Override\r\n    public Reader getDateOfMembershipById(int id) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            String sql = \"SELECT dateOfMembership Reader WHERE id=?\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            st.setInt(1, id);\r\n\r\n            ResultSet rs = st.executeQuery();\r\n            if (rs.next()) {\r\n                Reader reader = new Reader(rs.getInt(\"id\"),\r\n                        rs.getString(\"dateOfMembership\"),\r\n                        rs.getInt(\"totalBooksCheckedOut\"));\r\n                return reader;\r\n            }\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/repositories/ReaderRepo.java b/src/com/company/repositories/ReaderRepo.java
+--- a/src/com/company/repositories/ReaderRepo.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/repositories/ReaderRepo.java	(date 1615136310821)
+@@ -22,7 +22,7 @@
+     }
+ 
+     @Override
+-    public Reader getDateOfMembershipById(int id) {
++    public Reader getDateOfMembershipById(int id) { /*outputting date of membership by id of reader*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+Index: src/com/company/repositories/LibrarianRepo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.repositories;\r\n\r\nimport com.company.data.interfaces.IDB;\r\nimport com.company.entities.Librarian;\r\nimport com.company.repositories.interfaces.ILibrarianRepo;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\n\r\npublic class LibrarianRepo implements ILibrarianRepo {\r\n    private final IDB db;\r\n\r\n    public LibrarianRepo(IDB db) {\r\n        this.db=db;\r\n    }\r\n\r\n    @Override\r\n    public Librarian getNameById(int id) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            String sql = \"SELECT id, name, salary FROM Librarian WHERE id=?\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            st.setInt(1, id);\r\n\r\n            ResultSet rs = st.executeQuery();\r\n            if (rs.next()) {\r\n                Librarian librarian = new Librarian(rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getInt(\"salary\"));\r\n                return librarian;\r\n            }\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public boolean addLibrarian(Librarian librarian) {\r\n        Connection con =null;\r\n        try{\r\n            con = db.getConnection();\r\n            String sql=\"INSERT INTO Librarian(id, name, salary) VALUES(?,?,?)\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            st.setInt(1, librarian.getId());\r\n            st.setString(2, librarian.getName());\r\n            st.setInt(3, librarian.getSalary());\r\n\r\n            int rowsInserted = st.executeUpdate();\r\n\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        }finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/repositories/LibrarianRepo.java b/src/com/company/repositories/LibrarianRepo.java
+--- a/src/com/company/repositories/LibrarianRepo.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/repositories/LibrarianRepo.java	(date 1615136189946)
+@@ -17,7 +17,7 @@
+     }
+ 
+     @Override
+-    public Librarian getNameById(int id) {
++    public Librarian getNameById(int id) {/*getting name of librarian by id*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+@@ -48,7 +48,7 @@
+     }
+ 
+     @Override
+-    public boolean addLibrarian(Librarian librarian) {
++    public boolean addLibrarian(Librarian librarian) {/*creating librarian to the table*/
+         Connection con =null;
+         try{
+             con = db.getConnection();
+Index: src/com/company/controllers/ReaderContr.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.controllers;\r\n\r\nimport com.company.entities.Reader;\r\nimport com.company.repositories.interfaces.IReaderRepo;\r\n\r\npublic class ReaderContr {\r\n    private final IReaderRepo repo5;\r\n\r\n    public ReaderContr(IReaderRepo repo5) {\r\n        this.repo5 = repo5;\r\n    }\r\n    public String getBonus(){\r\n        boolean gotten =repo5.getBonus();\r\n        return gotten ? \"Bonus for librarian was added\" : \"Librarian can not get bonus\";\r\n    }\r\n    public String getDateOfMembershipById(int id){\r\n        Reader reader = repo5.getDateOfMembershipById(id);\r\n         return reader==null ? \"Reader's date of membership by this id was not found\" : \"Not found!\";\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/controllers/ReaderContr.java b/src/com/company/controllers/ReaderContr.java
+--- a/src/com/company/controllers/ReaderContr.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/controllers/ReaderContr.java	(date 1615136870691)
+@@ -9,11 +9,11 @@
+     public ReaderContr(IReaderRepo repo5) {
+         this.repo5 = repo5;
+     }
+-    public String getBonus(){
++    public String getBonus(){/*the function to getting bonus for readers*/
+         boolean gotten =repo5.getBonus();
+         return gotten ? "Bonus for librarian was added" : "Librarian can not get bonus";
+     }
+-    public String getDateOfMembershipById(int id){
++    public String getDateOfMembershipById(int id){/*rhe function which will return results*/
+         Reader reader = repo5.getDateOfMembershipById(id);
+          return reader==null ? "Reader's date of membership by this id was not found" : "Not found!";
+     }
+Index: src/com/company/repositories/BookInfoRepo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.repositories;\r\n\r\nimport com.company.data.interfaces.IDB;\r\nimport com.company.entities.BookInfo;\r\nimport com.company.repositories.interfaces.IBookInfoRepo;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\n\r\npublic class BookInfoRepo implements IBookInfoRepo {\r\n    private final IDB db;\r\n    public BookInfoRepo(IDB db){\r\n        this.db= db;\r\n    }\r\n\r\n    @Override\r\n    public boolean addBookInfo(BookInfo bookinfo) {\r\n        Connection con =null;\r\n        try{\r\n            con = db.getConnection();\r\n            String sql=\"INSERT INTO BookInfo(barcode, price, dateOfPurchase,publicationYear) Values(?,?,?,?)\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            st.setString(1, bookinfo.getBarcode());\r\n            st.setInt(2, bookinfo.getPrice());\r\n            st.setString(3, bookinfo.getDateOfPurchase());\r\n            st.setInt(4, bookinfo.getPublicationYear());\r\n\r\n            int rowsInserted = st.executeUpdate();\r\n\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        }finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n\r\n    @Override\r\n    public BookInfo getBookInfoByPrice(int price1, int price2) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            var sql = \"SELECT barcode, price, dateOfPurchase,publicationYear FROM BookInfo Where price BETWEEN '\" + price1+ \"'AND'\" + price2 + \"'\" ;\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            ResultSet rs = st.executeQuery();\r\n            if (rs.next()) {\r\n                BookInfo bookInfo = new BookInfo(rs.getString(\"barcode\"),\r\n                        rs.getInt(\"price\"),\r\n                        rs.getString(\"dateOfPurchase\"),\r\n                        rs.getInt(\"publicationYear\"));\r\n                return bookInfo;\r\n            }\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public boolean removeByBarcode(String barcode) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            var sql = \"SELECT barcode, price, dateOfPurchase,publicationYear FROM BookInfo WHERE barcode=?\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n\r\n            st.setString(1, barcode);\r\n            st.execute();\r\n            return true;\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public BookInfo getSaleByDate(int year1, int year2) {\r\n        Connection con = null;\r\n        try {\r\n            con = db.getConnection();\r\n            var sql = \"SELECT price FROM BookInfo Where publicationYear BETWEEN '\" + year1 + \"'AND'\" + year2 + \"'\";\r\n            PreparedStatement st = con.prepareStatement(sql);\r\n            ResultSet rs = st.executeQuery();\r\n\r\n            if (rs.next()) {\r\n                BookInfo bookInfo = new BookInfo(rs.getInt(\"price\"),\r\n                        rs.getInt(\"publicationYear\"));\r\n                return bookInfo;\r\n            }\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } finally {\r\n            try {\r\n                con.close();\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/repositories/BookInfoRepo.java b/src/com/company/repositories/BookInfoRepo.java
+--- a/src/com/company/repositories/BookInfoRepo.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/repositories/BookInfoRepo.java	(date 1615135806300)
+@@ -13,20 +13,20 @@
+     private final IDB db;
+     public BookInfoRepo(IDB db){
+         this.db= db;
+-    }
++    } /*for getting connection from IDB*/
+ 
+     @Override
+-    public boolean addBookInfo(BookInfo bookinfo) {
++    public boolean addBookInfo(BookInfo bookInfo) { /*creating new books in database*/
+         Connection con =null;
+         try{
+             con = db.getConnection();
+             String sql="INSERT INTO BookInfo(barcode, price, dateOfPurchase,publicationYear) Values(?,?,?,?)";
+             PreparedStatement st = con.prepareStatement(sql);
+ 
+-            st.setString(1, bookinfo.getBarcode());
+-            st.setInt(2, bookinfo.getPrice());
+-            st.setString(3, bookinfo.getDateOfPurchase());
+-            st.setInt(4, bookinfo.getPublicationYear());
++            st.setString(1, bookInfo.getBarcode());
++            st.setInt(2, bookInfo.getPrice());
++            st.setString(3, bookInfo.getDateOfPurchase());
++            st.setInt(4, bookInfo.getPublicationYear());
+ 
+             int rowsInserted = st.executeUpdate();
+ 
+@@ -46,7 +46,7 @@
+ 
+ 
+     @Override
+-    public BookInfo getBookInfoByPrice(int price1, int price2) {
++    public BookInfo getBookInfoByPrice(int price1, int price2) { /*outputting information about book by price range*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+@@ -76,7 +76,7 @@
+     }
+ 
+     @Override
+-    public boolean removeByBarcode(String barcode) {
++    public boolean removeByBarcode(String barcode) { /*deleting book by barcode*/
+         Connection con = null;
+         try {
+             con = db.getConnection();
+@@ -102,7 +102,7 @@
+     }
+ 
+     @Override
+-    public BookInfo getSaleByDate(int year1, int year2) {
++    public BookInfo getSaleByDate(int year1, int year2) {/*outputting books from table between 2 different years*/
+         Connection con = null;
+         try {
+             con = db.getConnection();

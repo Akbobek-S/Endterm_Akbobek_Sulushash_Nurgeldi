@@ -1,0 +1,122 @@
+Index: src/com/company/controllers/BookInfoContr.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.controllers;\r\n\r\nimport com.company.entities.BookInfo;\r\nimport com.company.repositories.interfaces.IBookInfoRepo;\r\n\r\npublic class BookInfoContr { /*creating a controller for Book class*/\r\n    private final IBookInfoRepo repo1;\r\n    public BookInfoContr(IBookInfoRepo repo1){\r\n        this.repo1 = repo1;\r\n     }\r\n        public String addBookInfo(String barcode, int price, String dateOfPurchase, int publicationYear){\r\n            BookInfo bookInfo = new BookInfo(barcode,price, dateOfPurchase, publicationYear);\r\n            boolean created= repo1.addBookInfo(bookInfo);\r\n\r\n            return  (created ?  \"Information about book is successfully added!\":\" addition was failed!\");\r\n    }\r\n    public String getBookInfoByPrice(int price1,int price2){\r\n            BookInfo bookInfo = repo1.getBookInfoByPrice(price1, price2);\r\n            return (bookInfo == null ? \"Information about book was not found\" : bookInfo.toString());\r\n        }\r\n    public String removeByBarcode(String barcode) {\r\n        boolean removed = repo1.removeByBarcode(barcode);\r\n\r\n        return ( removed ? \"Information about book was removed\" : \"It has trouble\");\r\n    }\r\n\r\n    public String getSaleByDate(int year1, int year2){\r\n        BookInfo gotten = repo1.getSaleByDate(year1,year2);\r\n        return ( gotten==null ? \"Sale was appointed\" : \"Sale is not valid\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/controllers/BookInfoContr.java b/src/com/company/controllers/BookInfoContr.java
+--- a/src/com/company/controllers/BookInfoContr.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/controllers/BookInfoContr.java	(date 1615136579744)
+@@ -14,17 +14,17 @@
+ 
+             return  (created ?  "Information about book is successfully added!":" addition was failed!");
+     }
+-    public String getBookInfoByPrice(int price1,int price2){
++    public String getBookInfoByPrice(int price1,int price2){/*return statement to a method*/
+             BookInfo bookInfo = repo1.getBookInfoByPrice(price1, price2);
+             return (bookInfo == null ? "Information about book was not found" : bookInfo.toString());
+         }
+-    public String removeByBarcode(String barcode) {
++    public String removeByBarcode(String barcode) {/*return statement to a method*/
+         boolean removed = repo1.removeByBarcode(barcode);
+ 
+         return ( removed ? "Information about book was removed" : "It has trouble");
+     }
+ 
+-    public String getSaleByDate(int year1, int year2){
++    public String getSaleByDate(int year1, int year2){/*return statement to a method*/
+         BookInfo gotten = repo1.getSaleByDate(year1,year2);
+         return ( gotten==null ? "Sale was appointed" : "Sale is not valid");
+     }
+Index: src/com/company/controllers/LibraryContr.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.controllers;\r\n\r\nimport com.company.entities.Librarian;\r\nimport com.company.entities.Library;\r\nimport com.company.repositories.interfaces.ILibraryRepo;\r\n\r\npublic class LibraryContr {\r\n    private final ILibraryRepo repo3;\r\n\r\n    public LibraryContr(ILibraryRepo repo3) {\r\n        this.repo3 = repo3;\r\n    }\r\n    public String getLibraryByLocation(String location){\r\n        Library library = repo3.getLibraryByLocation(location);\r\n        return (library == null ? \"Library with this location is not found\" : library.toString());\r\n    }\r\n    public String getAddressByName(String address){\r\n        Library library = repo3.getAddressByName(address);\r\n        return (library == null ? \"Library with this name is not found\" : library.toString());\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/controllers/LibraryContr.java b/src/com/company/controllers/LibraryContr.java
+--- a/src/com/company/controllers/LibraryContr.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/controllers/LibraryContr.java	(date 1615136870698)
+@@ -4,7 +4,7 @@
+ import com.company.entities.Library;
+ import com.company.repositories.interfaces.ILibraryRepo;
+ 
+-public class LibraryContr {
++public class LibraryContr {/*Controller for a Library class*/
+     private final ILibraryRepo repo3;
+ 
+     public LibraryContr(ILibraryRepo repo3) {
+Index: src/com/company/controllers/BooksContr.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.controllers;\r\n\r\nimport com.company.entities.Books;\r\nimport com.company.repositories.interfaces.IBookRepo;\r\n\r\nimport java.util.List;\r\n\r\npublic class BooksContr {\r\n    private final IBookRepo repo2;\r\n    public BooksContr(IBookRepo repo2) {\r\n        this.repo2=repo2;\r\n    }\r\n    public String getAllBooksList(){\r\n        List<Books> booksList = repo2.getAllBooksList();\r\n        return  booksList.toString();\r\n    }\r\n    public String getBookByAuthor(String author){\r\n        Books books = repo2.getBookByAuthor(author);\r\n\r\n        return books == null ? \"Books with this author was not found\" : books.toString();\r\n    }\r\n   public String getBookByGenre(String genre){\r\n       Books books = repo2.getBookByGenre(genre);\r\n\r\n       return books == null ? \"Books with this genre was not found\" : books.toString();\r\n   }\r\n    public String removeBookByPublisher(String publisher) {\r\n        boolean removed = repo2.removeBookByPublisher(publisher);\r\n\r\n        return ( removed ? \"Book was removed by publisher\" : \"It has trouble\");\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/controllers/BooksContr.java b/src/com/company/controllers/BooksContr.java
+--- a/src/com/company/controllers/BooksContr.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/controllers/BooksContr.java	(date 1615136611026)
+@@ -5,7 +5,7 @@
+ 
+ import java.util.List;
+ 
+-public class BooksContr {
++public class BooksContr {/*Controller for Books class*/
+     private final IBookRepo repo2;
+     public BooksContr(IBookRepo repo2) {
+         this.repo2=repo2;
+@@ -14,17 +14,17 @@
+         List<Books> booksList = repo2.getAllBooksList();
+         return  booksList.toString();
+     }
+-    public String getBookByAuthor(String author){
++    public String getBookByAuthor(String author){ /*return statement to a method*/
+         Books books = repo2.getBookByAuthor(author);
+ 
+         return books == null ? "Books with this author was not found" : books.toString();
+     }
+-   public String getBookByGenre(String genre){
++   public String getBookByGenre(String genre){ /*return statement to a method*/
+        Books books = repo2.getBookByGenre(genre);
+ 
+        return books == null ? "Books with this genre was not found" : books.toString();
+    }
+-    public String removeBookByPublisher(String publisher) {
++    public String removeBookByPublisher(String publisher) { /*return statement to a method*/
+         boolean removed = repo2.removeBookByPublisher(publisher);
+ 
+         return ( removed ? "Book was removed by publisher" : "It has trouble");
+Index: src/com/company/controllers/LibrarianContr.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.controllers;\r\n\r\nimport com.company.entities.Librarian;\r\nimport com.company.repositories.interfaces.ILibrarianRepo;\r\n\r\npublic class LibrarianContr {\r\n    private final ILibrarianRepo repo4;\r\n\r\n    public LibrarianContr(ILibrarianRepo repo4){\r\n        this.repo4 = repo4;\r\n    }\r\n    public String getNameById(int id){\r\n        Librarian librarian = repo4.getNameById(id);\r\n        return (librarian == null ? \"Librarian with this id is not found\" : librarian.toString());\r\n    }\r\n\r\n    public String addLibrarian(String name, int salary){\r\n        Librarian librarian = new Librarian(name, salary);\r\n        boolean created= repo4.addLibrarian(librarian);\r\n\r\n        return  (created ?  \"Information about librarian is successfully added!\":\" addition is failed!\");\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/controllers/LibrarianContr.java b/src/com/company/controllers/LibrarianContr.java
+--- a/src/com/company/controllers/LibrarianContr.java	(revision 62e600edc5b64eda5c46f7f002999dd0f0e775e7)
++++ b/src/com/company/controllers/LibrarianContr.java	(date 1615136870717)
+@@ -3,18 +3,18 @@
+ import com.company.entities.Librarian;
+ import com.company.repositories.interfaces.ILibrarianRepo;
+ 
+-public class LibrarianContr {
++public class LibrarianContr {/*Controller for a Librarian*/
+     private final ILibrarianRepo repo4;
+ 
+     public LibrarianContr(ILibrarianRepo repo4){
+         this.repo4 = repo4;
+-    }
++    }/*return statement to a method*/
+     public String getNameById(int id){
+         Librarian librarian = repo4.getNameById(id);
+         return (librarian == null ? "Librarian with this id is not found" : librarian.toString());
+     }
+ 
+-    public String addLibrarian(String name, int salary){
++    public String addLibrarian(String name, int salary){/*return statement to a method*/
+         Librarian librarian = new Librarian(name, salary);
+         boolean created= repo4.addLibrarian(librarian);
+ 

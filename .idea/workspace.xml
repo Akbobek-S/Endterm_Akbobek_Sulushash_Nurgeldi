@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3cd74f3f-a5a9-4924-96ee-f627238ee07c" name="Default Changelist" comment="First Commit">
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/MyApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/controllers/BookInfoContr.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/controllers/BooksContr.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/controllers/LibrarianContr.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/controllers/LibraryContr.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/controllers/ReaderContr.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/data/PostgresDB.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/data/interfaces/IDB.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/entities/BookInfo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/entities/Books.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/entities/Librarian.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/entities/Library.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/entities/Reader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/BookInfoRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/BookRepositories.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/LibrarianRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/LibraryRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/ReaderRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/interfaces/IBookInfoRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/interfaces/IBookRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/interfaces/ILibrarianRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/interfaces/ILibraryRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Final/com/company/repositories/interfaces/IReaderRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/BookInfoContr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/BookInfoContr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/BooksContr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/BooksContr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/LibrarianContr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/LibrarianContr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/LibraryContr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/LibraryContr.java" afterDir="false" />
+    </list>
+    <list id="8f52b94e-bd14-47ae-95fd-26adddb72f70" name="Changes by user" comment="Changes by user">
+      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/MyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/MyApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/BookInfoContr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/BookInfoContr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/LibraryContr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/LibraryContr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/ReaderContr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/ReaderContr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/repositories/BookInfoRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/repositories/BookInfoRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/repositories/BookRepositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/repositories/BookRepositories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/repositories/LibrarianRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/repositories/LibrarianRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/repositories/LibraryRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/repositories/LibraryRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/repositories/ReaderRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/repositories/ReaderRepo.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/com/company/controllers/BookInfoContr.java">
+      <ranges>
+        <range start1="11" end1="12" start2="11" end2="12" changelist="8f52b94e-bd14-47ae-95fd-26adddb72f70" />
+        <range start1="14" end1="15" start2="14" end2="15" changelist="8f52b94e-bd14-47ae-95fd-26adddb72f70" />
+        <range start1="16" end1="17" start2="16" end2="17" changelist="3cd74f3f-a5a9-4924-96ee-f627238ee07c" />
+        <range start1="20" end1="21" start2="20" end2="21" changelist="3cd74f3f-a5a9-4924-96ee-f627238ee07c" />
+        <range start1="26" end1="27" start2="26" end2="27" changelist="3cd74f3f-a5a9-4924-96ee-f627238ee07c" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/com/company/controllers/LibraryContr.java">
+      <ranges>
+        <range start1="6" end1="7" start2="6" end2="7" changelist="3cd74f3f-a5a9-4924-96ee-f627238ee07c" />
+        <range start1="12" end1="13" start2="12" end2="13" changelist="8f52b94e-bd14-47ae-95fd-26adddb72f70" />
+        <range start1="16" end1="17" start2="16" end2="17" changelist="8f52b94e-bd14-47ae-95fd-26adddb72f70" />
+      </ranges>
+    </file>
+  </component>
+  <component name="ProjectId" id="1pI7bW24aPq1uLgfK2q9ZlWL4Vi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="company" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.Main" />
+      <module name="Final" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3cd74f3f-a5a9-4924-96ee-f627238ee07c" name="Default Changelist" comment="" />
+      <created>1614858825857</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614858825857</updated>
+      <workItem from="1614858827093" duration="24000" />
+      <workItem from="1614858865039" duration="3314000" />
+      <workItem from="1614921772459" duration="6833000" />
+      <workItem from="1614935839247" duration="7444000" />
+      <workItem from="1614965459543" duration="6342000" />
+      <workItem from="1615031875676" duration="4998000" />
+      <workItem from="1615106501931" duration="10781000" />
+      <workItem from="1615123190400" duration="6456000" />
+      <workItem from="1615134622781" duration="4284000" />
+    </task>
+    <task id="LOCAL-00001" summary="First Commit">
+      <created>1614859812488</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1614859812488</updated>
+    </task>
+    <task id="LOCAL-00002" summary="First Commit">
+      <created>1614935482391</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1614935482391</updated>
+    </task>
+    <task id="LOCAL-00003" summary="First Commit">
+      <created>1614935611831</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1614935611831</updated>
+    </task>
+    <task id="LOCAL-00004" summary="First Commit">
+      <created>1615111756172</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1615111756172</updated>
+    </task>
+    <task id="LOCAL-00005" summary="First Commit">
+      <created>1615114074146</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1615114074146</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Changes by user">
+      <created>1615114473878</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1615114473878</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changes by user">
+      <created>1615114487886</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1615114487886</updated>
+    </task>
+    <task id="LOCAL-00008" summary="First Commit">
+      <created>1615114520379</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615114520379</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Changes by user">
+      <created>1615114536507</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1615114536507</updated>
+    </task>
+    <task id="LOCAL-00010" summary="First Commit">
+      <created>1615128460450</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1615128460450</updated>
+    </task>
+    <task id="LOCAL-00011" summary="First Commit">
+      <created>1615136201972</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1615136201972</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changes by user" />
+    <MESSAGE value="First Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="First Commit" />
+  </component>
+</project>
